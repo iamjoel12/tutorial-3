@@ -71,3 +71,11 @@ def add_device(device: dict):
     readings.append(device)
     return device
 
+# Create a get request to return every device in that room, or a 404
+
+@app.get("/rooms/{room}/devices")
+def get_devices_by_room(room: str):
+    devices_in_room = [reading for reading in readings if reading["room"] == room]
+    if not devices_in_room:
+        raise HTTPException(status_code=404, detail="No devices found in this room")
+    return devices_in_room

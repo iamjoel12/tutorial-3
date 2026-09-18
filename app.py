@@ -25,7 +25,7 @@ def get_hottest_reading():
     hottest_reading = max(readings, key=lambda x: x["temp"])
     return hottest_reading
 
-#create a get request to return the average temperature of all readings
+# Create a get request to return the average temperature of all readings
 
 @app.get("/average")
 def get_average_temperature():
@@ -41,4 +41,14 @@ def get_average_temperature():
 def get_online_devices():
     online_devices = [reading for reading in readings if reading["online"]]
     return online_devices
+
+# Create a get request to return a named device
+
+@app.get("/devices/{name}")
+def get_device_by_name(name: str):
+    device = next((reading for reading in readings if reading["name"] == name), None)
+    if not device:
+        raise HTTPException(status_code=404, detail="Device not found")
+    return device
+
 

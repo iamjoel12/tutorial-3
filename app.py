@@ -51,4 +51,14 @@ def get_device_by_name(name: str):
         raise HTTPException(status_code=404, detail="Device not found")
     return device
 
+# Create a get request to return the average temperature of all devices
+
+@app.get("/stats")
+def get_average_temperature_of_devices():
+    if not readings:
+        raise HTTPException(status_code=404, detail="No readings available")
+    
+    average_temp = sum(reading["temp"] for reading in readings) / len(readings)
+    return {"average_temperature": average_temp}
+
 

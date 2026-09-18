@@ -17,7 +17,7 @@ async def get_devices():
 
 # Create a get request to return the hottest reading
 
-@app.get("/hottest")
+@app.get("/devices/hottest")
 def get_hottest_reading():
     if not readings:
         raise HTTPException(status_code=404, detail="No readings available")

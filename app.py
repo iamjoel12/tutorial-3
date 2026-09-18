@@ -9,6 +9,11 @@ readings = [
     {"name": "fridge",     "room": "kitchen", "temp": 4.2,  "online": False},
     {"name": "patio",      "room": "outside", "temp": 29.8, "online": True},
 ]
+# Create a get request for all devices
+
+@app.get("/devices")
+async def get_devices():
+    return readings
 
 # Create a get request to return the hottest reading
 
@@ -29,3 +34,4 @@ def get_average_temperature():
     
     average_temp = sum(reading["temp"] for reading in readings) / len(readings)
     return {"average_temperature": average_temp}
+

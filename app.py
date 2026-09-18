@@ -35,3 +35,10 @@ def get_average_temperature():
     average_temp = sum(reading["temp"] for reading in readings) / len(readings)
     return {"average_temperature": average_temp}
 
+# Create a get request to return all online devices
+
+@app.get("/devices/online")
+def get_online_devices():
+    online_devices = [reading for reading in readings if reading["online"]]
+    return online_devices
+

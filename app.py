@@ -61,4 +61,13 @@ def get_average_temperature_of_devices():
     average_temp = sum(reading["temp"] for reading in readings) / len(readings)
     return {"average_temperature": average_temp}
 
+# Create a post request to add a new device with status 201
+
+@app.post("/devices", status_code=201)
+def add_device(device: dict):
+    if not all(key in device for key in ("name", "room", "temp", "online")):
+        raise HTTPException(status_code=400, detail="Missing required fields")
+    
+    readings.append(device)
+    return device
 
